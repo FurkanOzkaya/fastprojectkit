@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import About from  '../components/views/About.vue'
 import Dashboard from  '../components/views/Dashboard.vue'
+import Swagger from  '../components/Swagger/Swagger.vue'
 import Login from  '../components/views/Login.vue'
 import Error from  '../components/views/Error.vue'
 
@@ -36,9 +37,9 @@ const routes = [
     component: About
   },
   {
-    path: '/user',
-    name: 'User',
-    component: Dashboard
+    path: '/swagger',
+    name: 'Swagger',
+    component: Swagger
   },
   {
     path: '/request',

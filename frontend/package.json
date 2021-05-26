@@ -13,6 +13,8 @@
     "core-js": "^3.6.5",
     "dotenv": "^9.0.0",
     "lodash": "^4.17.21",
+    "swagger-client": "^3.13.3",
+    "swagger-ui": "^3.49.0",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.1",
     "vue-router": "^3.2.0",

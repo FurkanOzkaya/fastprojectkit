@@ -16,8 +16,7 @@ app = FastAPI(
 
 # Changing 422 Unprocessable Entity to  to 400 Bad Request
 origins = [
-    "http://localhost",
-    "http://localhost:8080",
+    "*"
 ]
 
 app.add_middleware(

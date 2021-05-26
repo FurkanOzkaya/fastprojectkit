@@ -42,8 +42,8 @@ export default {
     }),
   },
   watch: {
-    tokenStore() {
-      this.token = this.tokenStore;
+    tokenStore(newValue) {
+      this.token = newValue
       this.$nextTick()
       {
         if(this.token == null || this.token == undefined)

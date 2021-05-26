@@ -58,7 +58,7 @@ export default {
       cards: ['Today', 'Yesterday'],
       links: [
         ['mdi-view-dashboard', 'Dashboard', "Dashboard"],
-        ['mdi-account-convert', 'User Table', "User"],
+        ['mdi-account-convert', 'Swagger', "Swagger"],
         ['mdi-rocket', 'Request', "Request"],
         ['mdi-alert-octagon', 'Other 1', "Other1"],
         ['mdi-security-network', 'Other 2', "Other2"],

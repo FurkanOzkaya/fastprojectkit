@@ -14,9 +14,9 @@ require('dotenv').config()
 setupComponents(Vue);
 
 Vue.use(VueApexCharts)
-Object.defineProperty(Vue.prototype, "$_", {value: _})
+Object.defineProperty(Vue.prototype, "$_", { value: _ })
 Vue.component('apexchart', VueApexCharts)
-
+import SwaggerClient from 'swagger-client';
 
 new Vue({
   vuetify,
@@ -24,6 +24,7 @@ new Vue({
   router,
   axios,
   store,
+  SwaggerClient,
   data: {
     themeColor: '#f5f5f5'
   },

@@ -18,7 +18,7 @@ def register(user: RegisterUser, response: Response):
     client = UserDB(database=DATABASE_NAME, collection=COLLECTION_NAME_USER)
     is_email_exist = client.get_user_with_email(user.email)
     if is_email_exist:
-        return HTTPException(status_code=400, detail="Email Already Taken")
+        raise HTTPException(400, detail="Email Already Taken")
     request_body = jsonable_encoder(user)
     # For Normal users access_level will assign as 0
     request_body["access_level"] = 0
@@ -28,6 +28,6 @@ def register(user: RegisterUser, response: Response):
     request_body["create_time"] = datetime.now()
     result = client.insert_one(request_body)
     if not result.inserted_id:
-        return HTTPException(status_code=500, detail="Register Job has been Failed.")
+        raise HTTPException(status_code=500, detail="Register Job has been Failed.")
 
     return JSONResponse(status_code=status.HTTP_201_CREATED, content={"status": "Successfully Registered."})
