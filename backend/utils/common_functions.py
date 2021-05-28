@@ -2,6 +2,8 @@ import bcrypt
 import os
 from configs.config import ADMIN_ACCESS_LEVEL
 from datetime import datetime
+import json
+from bson import json_util
 
 
 def verify_password(plain_password, hashed_password):
@@ -35,3 +37,10 @@ def create_dir(dir):
     except Exception as err:
         print("Error makedirs command ", err)
         return False
+
+
+def handle_id_for_user_model(data):
+    id = data.get("_id", None)
+    if id:
+        data["_id"] = str(data["_id"])
+    return data

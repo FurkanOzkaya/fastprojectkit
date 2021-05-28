@@ -24,8 +24,7 @@ def register(user: RegisterUser, response: Response):
     request_body["access_level"] = 0
     # First opening active user
     request_body["disabled"] = False
-    request_body["create_date"] = datetime.today()
-    request_body["create_time"] = datetime.now()
+    request_body["create_date"] = datetime.now()
     result = client.insert_one(request_body)
     if not result.inserted_id:
         raise HTTPException(status_code=500, detail="Register Job has been Failed.")

@@ -1,13 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 from pydantic import Field, EmailStr
-from datetime import datetime, date
-from configs import config
-import os
-
-DEFAULT_AVATAR_PATH = None
-if config.DEFAULT_AVATAR_FILE_NAME:
-    DEFAULT_AVATAR_PATH = os.path.join(os.getcwd(), "images", "avatars", config.DEFAULT_AVATAR_FILE_NAME)
+from datetime import datetime
 
 
 class UserBaseModel(BaseModel):
@@ -15,12 +9,15 @@ class UserBaseModel(BaseModel):
     name: Optional[str] = Field(None, max_length=50)
     last_name: Optional[str] = Field(None, max_length=50)
     email: EmailStr
-    create_date: Optional[date]
-    create_time: Optional[datetime]
-    avatar: Optional[str] = DEFAULT_AVATAR_PATH
+    create_date: Optional[datetime]
+    avatar: Optional[str] = None
+    slug: Optional[str]
+    bio: Optional[str]
+    job: Optional[str]
 
 
 class UserListModel(UserBaseModel):
+    id: str = Field("", alias="_id")
     access_level: int
     disabled: bool = False
 
@@ -30,18 +27,17 @@ class RegisterUser(UserBaseModel):
 
 
 class UpdateUserModel(BaseModel):
-    username: Optional[str]
+    username: Optional[str] = Field(None, max_length=50)
     name: Optional[str] = Field(None, max_length=50)
     last_name: Optional[str] = Field(None, max_length=50)
+    slug: Optional[str] = Field(None, max_length=50)
+    bio: Optional[str] = Field(None, max_length=50)
+    job: Optional[str] = Field(None, max_length=50)
 
 
 class LoginUserModel(BaseModel):
     email: EmailStr
     password: str
-
-
-class TokenData(BaseModel):
-    email: Optional[str] = None
 
 
 class PasswordChangeModel(BaseModel):

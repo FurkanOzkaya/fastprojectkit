@@ -1,8 +1,6 @@
 from models.user_model import UserListModel
-from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Response, Depends
 from utils.token_functions import get_current_active_user
-
 
 router = APIRouter()
 

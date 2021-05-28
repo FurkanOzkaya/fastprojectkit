@@ -14,12 +14,12 @@ router = APIRouter()
 
 prefix = "/user"
 
-router.include_router(register_view, prefix=prefix)
-router.include_router(all_users, prefix=prefix)
-router.include_router(login_user, prefix=prefix)
 router.include_router(get_user, prefix=prefix)
+router.include_router(all_users, prefix=prefix)
+router.include_router(register_view, prefix=prefix)
+router.include_router(login_user, prefix=prefix)
+router.include_router(change_avatar, prefix=prefix)
 router.include_router(update_user, prefix=prefix)
 router.include_router(password_change, prefix=prefix)
 router.include_router(access_level_ratio, prefix=prefix)
 router.include_router(monthly_user_ratio, prefix=prefix)
-router.include_router(change_avatar, prefix=prefix)

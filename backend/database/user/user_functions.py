@@ -1,6 +1,7 @@
 from database.mongodb_functions import MongoDB
 from utils.singleton import Singleton
 from utils.common_functions import date_to_iso_date, get_password_hash
+from bson.objectid import ObjectId
 
 
 class UserDB(MongoDB, metaclass=Singleton):
@@ -8,12 +9,16 @@ class UserDB(MongoDB, metaclass=Singleton):
         super().__init__(host=host, port=port, username=username, password=password, database=database, collection=collection)
 
     def get_user_with_email(self, email):
-        result = self.collection.find_one({"email": email}, {"_id": 0, "password": 0})
-        print("get userrr", result)
+        result = self.collection.find_one({"email": email}, {"password": 0})
         return result
 
-    def get_user_with_email_pass(self, email):
-        result = self.collection.find_one({"email": email}, {"_id": 0})
+    def get_user_with_email_include_password(self, email):
+        result = self.collection.find_one({"email": email})
+        return result
+
+    def get_user_with_object_id(self, object_id):
+        result = self.collection.find_one({"_id": ObjectId(str(object_id))})
+        print(result)
         return result
 
     def insert_one(self, insert_value):
@@ -29,7 +34,6 @@ class UserDB(MongoDB, metaclass=Singleton):
 
     def update_password(self, email, data):
         query = {"email": email}
-        print(data)
         data["password"] = get_password_hash(data['password'])
         new_data = {"$set": data}
         result = self.collection.update_one(query, new_data)
@@ -44,4 +48,3 @@ class UserDB(MongoDB, metaclass=Singleton):
 
         result = self.collection.find(match, {"_id": 0, "password": 0})
         return result
-#datetime.strptime(date, '%y-%m-%d %H:%M:%S')
