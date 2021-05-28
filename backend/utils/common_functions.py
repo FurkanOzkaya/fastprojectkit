@@ -1,4 +1,5 @@
 import bcrypt
+import os
 from configs.config import ADMIN_ACCESS_LEVEL
 from datetime import datetime
 
@@ -24,3 +25,13 @@ def date_to_iso_date(date):
     except:
         date = datetime.strptime(f"{date}T12:00:30.575+00:00", '%Y-%m-%dT%H:%M:%S.%f%z')
     return date
+
+
+def create_dir(dir):
+    try:
+        if not os.path.isdir(dir):
+            os.makedirs(dir)
+        return True
+    except Exception as err:
+        print("Error makedirs command ", err)
+        return False

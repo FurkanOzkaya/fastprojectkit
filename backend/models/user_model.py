@@ -2,6 +2,12 @@ from pydantic import BaseModel
 from typing import Optional
 from pydantic import Field, EmailStr
 from datetime import datetime, date
+from configs import config
+import os
+
+DEFAULT_AVATAR_PATH = None
+if config.DEFAULT_AVATAR_FILE_NAME:
+    DEFAULT_AVATAR_PATH = os.path.join(os.getcwd(), "images", "avatars", config.DEFAULT_AVATAR_FILE_NAME)
 
 
 class UserBaseModel(BaseModel):
@@ -11,6 +17,7 @@ class UserBaseModel(BaseModel):
     email: EmailStr
     create_date: Optional[date]
     create_time: Optional[datetime]
+    avatar: Optional[str] = DEFAULT_AVATAR_PATH
 
 
 class UserListModel(UserBaseModel):
@@ -26,8 +33,6 @@ class UpdateUserModel(BaseModel):
     username: Optional[str]
     name: Optional[str] = Field(None, max_length=50)
     last_name: Optional[str] = Field(None, max_length=50)
-    disabled: Optional[bool] = False
-    access_level: Optional[int]
 
 
 class LoginUserModel(BaseModel):

@@ -9,6 +9,7 @@ class UserDB(MongoDB, metaclass=Singleton):
 
     def get_user_with_email(self, email):
         result = self.collection.find_one({"email": email}, {"_id": 0, "password": 0})
+        print("get userrr", result)
         return result
 
     def get_user_with_email_pass(self, email):

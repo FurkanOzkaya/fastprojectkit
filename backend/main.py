@@ -6,13 +6,16 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.encoders import jsonable_encoder
 from views.user.v1.api import router as user_api_v1
 from configs.config import v1_url
-
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="Develop FastApi (Easy Implement each Project)",
     description="You can easly implement these project and start your project",
     version="0.0.1"
 )
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Changing 422 Unprocessable Entity to  to 400 Bad Request
 origins = [
