@@ -1,0 +1,55 @@
+version: "3"
+services:
+    backend:
+        build: 
+        restart: 
+        ports:
+            - ""
+        environment:
+            PYTHONUNBUFFERED: 0
+            
+        depends_on:
+            - database
+        networks:
+            - backend-network
+        volumes: 
+            - some_path
+            
+    database:
+        image: mongo
+        container_name: database
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ""
+            MONGO_INITDB_ROOT_PASSWORD: ""
+            MONGO_INITDB_DATABASE: "FastProjectKit"
+        volumes: 
+            - some_path
+        networks:
+            - backend-network
+    admin_frontend:
+        build: 
+        restart: 
+        ports:
+            - ""
+        networks:
+            - backend-network
+            - admin-network
+    frontend:
+       build: 
+       restart: 
+       ports:
+           - ""
+       networks:
+           - backend-network
+           - frontend-network
+
+
+networks:
+    backend-network:
+        driver: bridge
+    admin-network:
+        driver: bridge
+    frontend-network:
+       driver: bridge
+        

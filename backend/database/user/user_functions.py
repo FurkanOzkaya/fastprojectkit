@@ -5,8 +5,8 @@ from bson.objectid import ObjectId
 
 
 class UserDB(MongoDB, metaclass=Singleton):
-    def __init__(self, host='localhost', port=27017, username='', password='', database=None, collection=None):
-        super().__init__(host=host, port=port, username=username, password=password, database=database, collection=collection)
+    def __init__(self, username='', password='', database=None, collection=None):
+        super().__init__(username=username, password=password, database=database, collection=collection)
 
     def get_user_with_email(self, email):
         result = self.collection.find_one({"email": email}, {"password": 0})

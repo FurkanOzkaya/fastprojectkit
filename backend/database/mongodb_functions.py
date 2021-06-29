@@ -1,13 +1,13 @@
-from re import match
+from configs.config import MONGO_HOST, MONGO_PORT
 from utils.exceptions import DatabaseError
 from pymongo import MongoClient
 from utils.singleton import Singleton
 
 
 class MongoDB(metaclass=Singleton):
-    def __init__(self, host='localhost', port=27017, username='', password='', database=None, collection=None):
+    def __init__(self, username='', password='', database=None, collection=None):
         try:
-            self.client = MongoClient(host=host, port=port, username=username, password=password)
+            self.client = MongoClient(host=MONGO_HOST, port=MONGO_PORT, username=username, password=password)
         except:
             raise DatabaseError("Database client creation has been failed!")
 
