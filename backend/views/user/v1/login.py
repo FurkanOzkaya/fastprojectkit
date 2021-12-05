@@ -24,7 +24,7 @@ def login(response: Response, login_user_model: LoginUserModel):
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    print("authenticate ", user)
+
     access_token = create_access_token(
         data={"_id": user["_id"]}, expires_delta=access_token_expires
     )

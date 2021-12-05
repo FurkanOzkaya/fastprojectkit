@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class UserBaseModel(BaseModel):
-    username: Optional[str]
+    username: Optional[str] = Field(None, max_length=50)
     name: Optional[str] = Field(None, max_length=50)
     last_name: Optional[str] = Field(None, max_length=50)
     email: EmailStr

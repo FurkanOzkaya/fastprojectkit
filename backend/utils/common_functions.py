@@ -2,8 +2,7 @@ import bcrypt
 import os
 from configs.config import ADMIN_ACCESS_LEVEL
 from datetime import datetime
-import json
-from bson import json_util
+from uuid import uuid4
 
 
 def verify_password(plain_password, hashed_password):
@@ -29,18 +28,33 @@ def date_to_iso_date(date):
     return date
 
 
+def handle_id_for_model(data):
+    id = data.get("_id", None)
+    if id:
+        data["_id"] = str(data["_id"])
+    return data
+
+
 def create_dir(dir):
     try:
         if not os.path.isdir(dir):
             os.makedirs(dir)
         return True
     except Exception as err:
-        print("Error makedirs command ", err)
         return False
 
 
-def handle_id_for_user_model(data):
-    id = data.get("_id", None)
-    if id:
-        data["_id"] = str(data["_id"])
-    return data
+def delete_file(file):
+    try:
+        if os.path.isfile(file):
+            os.remove(file)
+            return True
+        else:
+            return False
+    except Exception as err:
+        return False
+
+
+def generate_unique_id():
+    unique_id = uuid4()
+    return str(unique_id)

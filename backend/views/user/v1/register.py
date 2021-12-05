@@ -4,8 +4,7 @@ from models.user_model import RegisterUser
 from fastapi import APIRouter, Response, status
 from database.user.user_functions import UserDB
 from fastapi.encoders import jsonable_encoder
-from configs.config import DATABASE_NAME, COLLECTION_NAME_USER
-from datetime import datetime, date
+from datetime import datetime
 router = APIRouter()
 
 
@@ -15,10 +14,14 @@ router = APIRouter()
                         422: {"description": "RESPONSE NOT USED"},
                         500: {"description": "Internal Server Error"}})
 def register(user: RegisterUser, response: Response):
-    client = UserDB(database=DATABASE_NAME, collection=COLLECTION_NAME_USER)
+    client = UserDB()
     is_email_exist = client.get_user_with_email(user.email)
     if is_email_exist:
         raise HTTPException(400, detail="Email Already Taken")
+    if(user.username):
+        is_username_exist = client.get_user_with_username(user.username)
+        if is_username_exist:
+            raise HTTPException(400, detail="Username Already Taken")
     request_body = jsonable_encoder(user)
     # For Normal users access_level will assign as 0
     request_body["access_level"] = 0

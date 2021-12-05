@@ -4,9 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter, Response, Depends
 from database.user.user_functions import UserDB
-from configs.config import DATABASE_NAME, COLLECTION_NAME_USER
 from utils.token_functions import is_active_user_admin
-import json
 
 
 router = APIRouter()
@@ -20,7 +18,7 @@ router = APIRouter()
 def all_users_api(
         response: Response, current_user: UserListModel = Depends(is_active_user_admin),
         date: Optional[str] = None):
-    client = UserDB(database=DATABASE_NAME, collection=COLLECTION_NAME_USER)
+    client = UserDB()
 
     users = client.get_all_documents(date)
 

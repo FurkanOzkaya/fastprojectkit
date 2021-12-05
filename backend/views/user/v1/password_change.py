@@ -10,17 +10,18 @@ from utils.token_functions import get_current_active_user
 router = APIRouter()
 
 
-@router.patch("/password_change/",
+@router.patch("/password-change/",
               responses={200: {"description": "Successfully Changed"},
                          400: {"description": "Bad Request Please check data."},
                          422: {"description": "RESPONSE NOT USED"},
                          500: {"description": "Internal Server Error"}})
 def password_change(response: Response, data: PasswordChangeModel,
                     current_user: UserListModel = Depends(get_current_active_user)):
-    client = UserDB(database=DATABASE_NAME, collection=COLLECTION_NAME_USER)
+    client = UserDB()
     data = jsonable_encoder(data)
-    result = client.update_password(current_user.email, data)
+    result = client.update_password(current_user.id, data)
+    print(result)
     if not result:
-        return HTTPException(status_code=500, detail="Password Update Job has been Failed.")
+        raise HTTPException(status_code=500, detail="Password Update Job has been Failed.")
 
     return JSONResponse(status_code=status.HTTP_200_OK, content={"status": "Successfully Changed."})

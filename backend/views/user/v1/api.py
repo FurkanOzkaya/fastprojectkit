@@ -1,4 +1,4 @@
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter
 from views.user.v1.register import router as register_view
 from views.user.v1.all_users import router as all_users
 from views.user.v1.get_user import router as get_user
