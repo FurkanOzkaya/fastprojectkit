@@ -12,6 +12,8 @@ class MongoDB(metaclass=Singleton):
         self.mongo_username = MONGO_INITDB_ROOT_USERNAME
         self.mongo_password = MONGO_INITDB_ROOT_PASSWORD
         self.database_name = DATABASE_NAME
+        print(
+            f"[INFO] Connection MongoDB with {self.host} {self.port} {self.mongo_username}")
         self.connect_mongo()
 
     def connect_mongo(self):
@@ -19,7 +21,8 @@ class MongoDB(metaclass=Singleton):
             self.client = MongoClient(host=f"{self.host}", port=int(self.port),
                                       username=self.mongo_username, password=self.mongo_password)
         except Exception as err:
-            raise DatabaseError("Database client creation has been failed! ", err)
+            raise DatabaseError(
+                "Database client creation has been failed! ", err)
 
         self.database = self.client[self.database_name]
 

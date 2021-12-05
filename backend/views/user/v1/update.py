@@ -21,10 +21,9 @@ def update_user(response: Response, data: UpdateUserModel, current_user: UserLis
 
     if data.username:
         is_username_exist = client.get_user_with_username(data.username)
-
+        if is_username_exist:
+            raise HTTPException(400, detail="Username Already Taken")
     data = jsonable_encoder(data)
-    if is_username_exist:
-        raise HTTPException(400, detail="Username Already Taken")
 
     result = client.update_one(current_user.id, data)
 

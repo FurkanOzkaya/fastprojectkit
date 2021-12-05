@@ -24,15 +24,17 @@ def date_to_iso_date(date):
     try:
         date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S.%f%z')
     except:
-        date = datetime.strptime(f"{date}T12:00:30.575+00:00", '%Y-%m-%dT%H:%M:%S.%f%z')
+        date = datetime.strptime(
+            f"{date}T12:00:30.575+00:00", '%Y-%m-%dT%H:%M:%S.%f%z')
     return date
 
 
 def handle_id_for_model(data):
-    id = data.get("_id", None)
-    if id:
-        data["_id"] = str(data["_id"])
-    return data
+    if data:
+        id = data.get("_id", None)
+        if id:
+            data["_id"] = str(data["_id"])
+        return data
 
 
 def create_dir(dir):
